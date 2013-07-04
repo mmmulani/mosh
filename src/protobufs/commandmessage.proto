@@ -1,0 +1,17 @@
+package TermBuffers;
+
+message CommandMessage {
+  repeated Instruction instruction = 1;
+}
+
+message Instruction {
+  extensions 2 to max;
+}
+
+message General {
+  optional string payload = 100;
+}
+
+extend Instruction {
+  optional General general = 2;
+}

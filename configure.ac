@@ -333,6 +333,7 @@ AC_CONFIG_FILES([
   src/network/Makefile
   src/protobufs/Makefile
   src/statesync/Makefile
+  src/term/Makefile
   src/terminal/Makefile
   src/util/Makefile
   scripts/Makefile
