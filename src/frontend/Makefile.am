@@ -16,4 +16,4 @@ if BUILD_SERVER
 endif
 
 mosh_client_SOURCES = mmclient.cc mmclient.h term-client.cc
-mosh_server_SOURCES = mosh-server.cc
+mosh_server_SOURCES = mmserver.cc

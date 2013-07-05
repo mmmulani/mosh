@@ -2,6 +2,8 @@
 
 #include "mmclient.h"
 
+#include <unistd.h>
+
 #include "select.h"
 #include "networktransport.cc"
 
@@ -23,10 +25,21 @@ void MMClient::main() {
     );
   network->set_send_delay(1);
 
+  uint64_t last_remote_num = network->get_remote_state_num();
+
   Select &sel = Select::get_instance();
   while (1) {
     try {
-      //output_new_frame
+      if (network->get_remote_state_num() != last_remote_num) {
+          last_remote_num = network->get_remote_state_num();
+          
+          Term::CommandStream command_stream;
+          command_stream.apply_string(network->get_remote_diff());
+          for (size_t i = 0; i < command_stream.size(); i++) {
+            const string *action = command_stream.get_action(i);
+            fprintf(stderr, "Received: %s\n", action->c_str());
+          }
+        }
 
       sel.clear_fds();
       sel.add_fd(STDIN_FILENO);
